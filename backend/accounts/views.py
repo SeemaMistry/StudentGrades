@@ -3,8 +3,10 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from user_profile.models import UserProfile
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(csrf_protect, name='dispatch')
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny, ) # allow access without CSRF token
 
@@ -25,7 +27,7 @@ class SignupView(APIView):
                 else:
                     user = User.objects.create_user(username=username, password=password)
                     user.save()
-                    
+
                     # create new profile
                     user = User.objects.get(username=username)
                     user_profile = UserProfile(user, first_name='', last_name='', phone='', city='')
@@ -33,3 +35,10 @@ class SignupView(APIView):
                     return Response({'success' : 'new user created successfully'})
         else:
             return Response({'error': 'Passwords do not match'})
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class GetCSRFToken(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, format=None):
+        return Response({'success' : 'CSRF cookie set'})
