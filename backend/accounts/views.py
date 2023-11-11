@@ -23,7 +23,7 @@ class SignupView(APIView):
                 return Response({'error': 'username already exists'})
             else:
                 if len(password) < 6:
-                    Response({'error': 'Passwords must be at least 6 characters'})
+                    return Response({'error': 'Passwords must be at least 6 characters'})
                 else:
                     user = User.objects.create_user(username=username, password=password)
                     user.save()
