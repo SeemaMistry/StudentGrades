@@ -48,8 +48,37 @@ class SignupView(APIView):
             return Response({'error': 'Passwords do not match'})
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
+class LoginView(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def post(self, request, format=None):
+        data = self.request.data
+
+        username = data['username']
+        password = data['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return Response({'success': 'user authenticated', 'username' : username})
+        else:
+            return Response({'error': 'error authenticating'})
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class LogoutView(APIView):
+    def post(self, request, format=None):
+        try:
+            auth.logout(request)
+            return Response({'success': 'logged Out'})
+        except:
+            return Response({'error': 'error logging out'})
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class GetCSRFToken(APIView):
     permission_classes = (permissions.AllowAny, )
 
     def get(self, request, format=None):
         return Response({'success' : 'CSRF cookie set'})
+    
