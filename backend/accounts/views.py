@@ -7,6 +7,17 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 
 @method_decorator(csrf_protect, name='dispatch')
+class CheckAuthenticated(APIView):
+    def get(self, request, format=None):
+        # check if user is authenticated
+        isAuthenticated = User.is_authenticated
+
+        if isAuthenticated:
+            return Response({'isAuthenticated': 'success'})
+        else:
+            return Response({'isAuthenticated': 'error'})     
+
+@method_decorator(csrf_protect, name='dispatch')
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny, ) # allow access without CSRF token
 
