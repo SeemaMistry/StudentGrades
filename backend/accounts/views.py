@@ -110,3 +110,15 @@ class DeleteUserView(APIView):
         except:
             return Response({'error': 'Something went wrong when deleting user'})
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class DisplayAllUsers(APIView):
+        permission_classes = (permissions.AllowAny, )
+
+        def get(self, request, format=None):
+            try:
+                # get all the users
+                users = User.objects.all()
+                users = UserSerializer(users, many=True)
+                return Response({'success': 'All users were retrived from database', 'users': users.data})
+            except:
+                return Response({'error': 'Something went wrong when displaying all users'})
