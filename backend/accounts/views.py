@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.response import Response
 from user_profile.models import UserProfile
+from .serializers import UserSerializer
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
@@ -78,7 +79,6 @@ class LoginView(APIView):
             return Response({'error': 'Something went wrong when logging in'})
 
 
-
 class LogoutView(APIView):
     def post(self, request, format=None):
         try:
@@ -87,10 +87,26 @@ class LogoutView(APIView):
         except:
             return Response({'error': 'error logging out'})
 
+
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class GetCSRFToken(APIView):
     permission_classes = (permissions.AllowAny, )
 
     def get(self, request, format=None):
         return Response({'success' : 'CSRF cookie set'})
-    
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class DeleteUserView(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def delete(self, request, format=None):
+        try:
+            # get user and delete it 
+            user = request.user
+            user = User.objects.filter(id=user.id).delete()
+
+            return Response({'success': 'user was deleted'})
+        except:
+            return Response({'error': 'Something went wrong when deleting user'})
+
