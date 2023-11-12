@@ -66,7 +66,6 @@ class LoginView(APIView):
             return Response({'error': 'error authenticating'})
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
 class LogoutView(APIView):
     def post(self, request, format=None):
         try:
