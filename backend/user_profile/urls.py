@@ -1,3 +1,6 @@
 from django.urls import path
+from .views import GetUserProfileView
 
-urlpatterns = []
+urlpatterns = [
+    path('user', GetUserProfileView.as_view())
+]
