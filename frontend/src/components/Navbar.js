@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-            <Link className="navbar-brand" href="/">Navbar</Link>
+            <Link className="navbar-brand" href="/">StudentGrades</Link>
             <button 
                 className="navbar-toggler" 
                 type="button" 
