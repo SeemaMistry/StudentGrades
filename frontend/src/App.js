@@ -1,5 +1,5 @@
 import React from 'react'
-import {BroswerRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Layout from './hocs/Layout'
 import Home from './containers/Home'
 import Register from './containers/Register'
