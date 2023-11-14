@@ -6,19 +6,24 @@ import Register from './containers/Register'
 import Login from './containers/Login'
 import Dashboard from './containers/Dashboard'
 
+import { Provider } from 'react-redux'
+import store from './store'
+
 
 const App = () => {
     return (
-        <Router>
-            <Layout>
-                <Routes>
-                    <Route exact path='/' Component={Home}></Route>
-                    <Route exact path='/register' Component={Register}></Route>
-                    <Route exact path='/login' Component={Login}></Route>
-                    <Route exact path='/dashboard' Component={Dashboard}></Route>
-                </Routes>
-            </Layout>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Layout>
+                    <Routes>
+                        <Route exact path='/' Component={Home}></Route>
+                        <Route exact path='/register' Component={Register}></Route>
+                        <Route exact path='/login' Component={Login}></Route>
+                        <Route exact path='/dashboard' Component={Dashboard}></Route>
+                    </Routes>
+                </Layout>
+            </Router>
+        </Provider>
     )
 }
 
