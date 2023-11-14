@@ -1,11 +1,26 @@
 import React from 'react'
 
+import { Link, NavLink } from 'react-router-dom';
+
 const Navbar = () => {
+    const guestLinks = (
+        
+        <>
+            <li className="nav-item">
+                <NavLink className="nav-link" to="/login">Login</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink className="nav-link" to="/register">Register</NavLink>
+            </li>
+        </>
+       
+    )
+
   return (
     <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <Link className="navbar-brand" href="/">Navbar</Link>
             <button 
                 className="navbar-toggler" 
                 type="button" 
@@ -20,11 +35,9 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <a className="nav-link" aria-current="page" href="#">Home</a>
+                    <NavLink className="nav-link" extact to="/">Home</NavLink>
                 </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">Features</a>
-                </li>
+                { guestLinks }
             </ul>
             </div>
         </div>
