@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { register} from '../actions/auth'
 
@@ -23,12 +23,10 @@ const Register = ({register}) => {
     if (password === re_password) {
       register(username, password, re_password)
       setAccountCreated(true)
-    } else {
-      setAccountCreated(false)
-    }
+    } 
 
     if (accountCreated) {
-      <Redirect  to={'/'} />
+      <Navigate  to={'/'} />
     }
 
   }
@@ -57,6 +55,7 @@ const Register = ({register}) => {
             placeholder='password'
             onChange={onChange}
             value={password}
+            minLength='6'
             required
           />
         </div>
@@ -68,10 +67,11 @@ const Register = ({register}) => {
             placeholder='password'
             onChange={onChange}
             value={re_password}
+            minLength='6'
             required
           />
         </div>
-
+        <button className='btn btn-primary' type='submit'>Register</button>
       </form>
     </div>
   )
