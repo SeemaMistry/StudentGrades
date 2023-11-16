@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Layout from './hocs/Layout'
 import Home from './containers/Home'
@@ -8,7 +8,6 @@ import Dashboard from './containers/Dashboard'
 
 import { Provider } from 'react-redux'
 import store from './store'
-
 
 const App = () => {
     return (
@@ -22,7 +21,7 @@ const App = () => {
                         <Route exact path='/dashboard' Component={Dashboard}></Route>
                     </Routes>
                 </Layout>
-            </Router>
+            </Router>           
         </Provider>
     )
 }
