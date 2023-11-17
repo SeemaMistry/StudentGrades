@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { register} from '../actions/auth'
+import CSRFToken from '../components/CSRFToken'
 
 const Register = ({register}) => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const Register = ({register}) => {
       <h1>Register for an Account</h1>
       <p>Create an account with our Student Grades application</p>
       <form onSubmit={onSubmit}>
+        <CSRFToken />
         <div className='form-group'>
           <label className='form-label mt-3'>Username: </label>
           <input

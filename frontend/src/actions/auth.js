@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL
@@ -9,7 +10,8 @@ export const register = (username, password, re_password) => async dispatch => {
     const config = {
         headers:{
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-CSRFToken': Cookies.get('csrftoken')
         }
     }
     const body = JSON.stringify({username, password, re_password})
