@@ -26,14 +26,11 @@ const Register = ({register}) => {
       setAccountCreated(true)
     } 
 
-    if (accountCreated) {
-      <Navigate  to={'/'} />
-    }
-
   }
 
   return (
     <div className='container mt-5'>
+      {accountCreated && <Navigate to='/login' replace/>}
       <h1>Register for an Account</h1>
       <p>Create an account with our Student Grades application</p>
       <form onSubmit={onSubmit}>
