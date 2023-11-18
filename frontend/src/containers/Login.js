@@ -20,7 +20,7 @@ const Login = ({login, isAuthenticated}) => {
 
   return (
     <div className='container mt-5'>
-      {isAuthenticated && <Navigate to='/' replace/>}
+      {isAuthenticated ? <Navigate to='/dashboard' replace/> : <Navigate to='/login' replace/>}
       <h1>Sign In</h1>
       <p>Sign in to your Student Grades application</p>
       <form onSubmit={onSubmit}>
