@@ -88,7 +88,7 @@ export const logout = () => async dispatch => {
             })
         } else {
             dispatch({
-                type: LOGIN_FAIL
+                type: LOGOUT_FAIL
             })
         }
 
