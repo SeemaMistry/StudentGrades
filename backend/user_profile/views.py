@@ -11,9 +11,6 @@ class GetUserProfileView(APIView):
         try:
             # get user
             user = self.request.user
-
-            user = User.objects.get(id=user.id)
-
             user_profile = UserProfile.objects.get(user=user)
             user_profile = UserPerofileSerializer(user_profile)
 
@@ -32,7 +29,7 @@ class UpdateUserProfileView(APIView):
             phone = data['phone']
             city = data['city']
 
-            user = User.objects.get(id=user.id)
+            # user = User.objects.get(id=user.id)
 
             user_profile = UserProfile.objects.filter(user=user).update(first_name=first_name, last_name=last_name, city=city, phone=phone)
             user_profile = UserProfile.objects.get(user=user)

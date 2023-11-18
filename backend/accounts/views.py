@@ -11,9 +11,10 @@ from django.utils.decorators import method_decorator
 @method_decorator(csrf_protect, name='dispatch')
 class CheckAuthenticated(APIView):
     def get(self, request, format=None):
+        user = self.request.user
         # check if user is authenticated
         try: 
-            isAuthenticated = User.is_authenticated
+            isAuthenticated = user.is_authenticated
 
             if isAuthenticated:
                 return Response({'isAuthenticated': 'success'})
@@ -44,11 +45,10 @@ class SignupView(APIView):
                         return Response({'error': 'Passwords must be at least 6 characters'})
                     else:
                         user = User.objects.create_user(username=username, password=password)
-                        user.save()
 
                         # create new profile
                         user = User.objects.get(id=user.id)
-                        user_profile = UserProfile(user=user, first_name='', last_name='', phone='', city='')
+                        user_profile = UserProfile.objects.create(user=user, first_name='', last_name='', phone='', city='')
                         user_profile.save()
                         return Response({'success' : 'new user created successfully'})
             else:
