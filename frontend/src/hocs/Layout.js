@@ -1,7 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Navbar from '../components/Navbar';
+import { connect } from 'react-redux';
+import { checkAuthenticated } from '../actions/auth';
 
-const Layout = ({children}) => {
+const Layout = ({children, checkAuthenticated}) => {
+  useEffect (() => {
+    checkAuthenticated()
+  }, [])
+
   return (
     <>
         <Navbar />
@@ -10,4 +16,4 @@ const Layout = ({children}) => {
   )
 }
 
-export default Layout;
+export default connect(null, {checkAuthenticated})(Layout);
