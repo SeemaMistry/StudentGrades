@@ -6,7 +6,11 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL, 
     LOGOUT_SUCCESS,
-    LOGOUT_FAIL
+    LOGOUT_FAIL,
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL,
+    UPDATE_USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_FAIL
 } from './types'
 
 
@@ -36,6 +40,36 @@ export const register = (username, password, re_password) => async dispatch => {
 
     }
     
+}
+
+export const checkAuthenticated = () => async dispatch => {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    } 
+
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/authenticated`, config)
+
+        if (res.data.error || res.data.isAuthenticated === 'error'){
+            dispatch({
+                type: AUTHENTICATED_FAIL,
+                payload: false
+            })
+        } else if (res.data.isAuthenticated === 'success') {
+            dispatch({
+                type: AUTHENTICATED_SUCCESS,
+                payload: true
+            })
+        } 
+    } catch (err) {
+        dispatch({
+            type: AUTHENTICATED_FAIL,
+            payload: false
+        })
+    }
 }
 
 export const login = (username, password) => async dispatch => {
@@ -96,4 +130,27 @@ export const logout = () => async dispatch => {
 
     }
     
+}
+
+export const updateUserProfile = ({first_name, last_name, phone, city}) => async dispatch => {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': Cookies.get('csrftoken')
+        }
+    } 
+    const body = JSON.stringify({'withCredentials': true, first_name, last_name, phone, city})
+
+    try {
+        const res = await axios.put(`${process.env.REACT_APP_API_URL}/profile/update`, body, config)
+        if(res.data.success && res.data.profile){
+            dispatch({
+                type: UPDATE_USER_PROFILE_SUCCESS,
+                payload: res.data
+            })
+        } else {
+            dispatch({type: UPDATE_USER_PROFILE_FAIL})
+        }
+    } catch (err) {}
 }

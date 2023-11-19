@@ -4,7 +4,11 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
-    LOGOUT_FAIL
+    LOGOUT_FAIL,
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL,
+    UPDATE_USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_FAIL
 } from '../actions/types'
 
 const initialState = {
@@ -24,6 +28,12 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuthenticated: false
             }
+        case AUTHENTICATED_FAIL:
+        case AUTHENTICATED_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: payload
+            }
         case LOGIN_SUCCESS:
             return {
                 ...state,
@@ -34,6 +44,14 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false
+            }
+        case UPDATE_USER_PROFILE_SUCCESS:
+            return {
+                ...state,
+                first_name: payload.first_name,
+                last_name: payload.last_name,
+                phone: payload.phone,
+                city: payload.city
             }
         
         case REGISTER_FAIL:
