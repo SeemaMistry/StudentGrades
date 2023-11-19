@@ -132,25 +132,3 @@ export const logout = () => async dispatch => {
     
 }
 
-export const updateUserProfile = ({first_name, last_name, phone, city}) => async dispatch => {
-    const config = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-CSRFToken': Cookies.get('csrftoken')
-        }
-    } 
-    const body = JSON.stringify({'withCredentials': true, first_name, last_name, phone, city})
-
-    try {
-        const res = await axios.put(`${process.env.REACT_APP_API_URL}/profile/update`, body, config)
-        if(res.data.success && res.data.profile){
-            dispatch({
-                type: UPDATE_USER_PROFILE_SUCCESS,
-                payload: res.data
-            })
-        } else {
-            dispatch({type: UPDATE_USER_PROFILE_FAIL})
-        }
-    } catch (err) {}
-}
