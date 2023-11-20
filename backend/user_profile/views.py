@@ -11,10 +11,11 @@ class GetUserProfileView(APIView):
         try:
             # get user
             user = self.request.user
+            username = user.username
             user_profile = UserProfile.objects.get(user=user)
             user_profile = UserPerofileSerializer(user_profile)
 
-            return Response({'success': 'successfully got user profile', 'profile': user_profile.data})
+            return Response({'username': str(username), 'profile': user_profile.data})
         except:
              return Response({'error': 'Something went wrong when retrieving user profile'})
 

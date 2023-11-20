@@ -15,23 +15,18 @@ const initialState = {
 export default function(state = initialState, action) {
     const {type, payload} = action
     switch (type){
+        case UPDATE_USER_PROFILE_SUCCESS:
         case LOAD_USER_PROFILE_SUCCESS:
             return {
                 ...state,
-                username: payload.username,
-                first_name: payload.first_name,
-                last_name: payload.last_name,
-                phone: payload.phone,
-                city: payload.city
+                username: payload.auth.username,
+                first_name: payload.profile.first_name,
+                last_name: payload.profile.last_name,
+                phone: payload.profile.phone,
+                city: payload.profile.city
             }
-        case UPDATE_USER_PROFILE_SUCCESS:
-            return {
-                ...state,
-                first_name: payload.first_name,
-                last_name: payload.last_name,
-                phone: payload.phone,
-                city: payload.city
-            }
+        
+
         case LOAD_USER_PROFILE_FAIL:
             return {
                 ...state,
