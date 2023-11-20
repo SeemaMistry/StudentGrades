@@ -6,18 +6,11 @@ import {
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
     AUTHENTICATED_SUCCESS,
-    AUTHENTICATED_FAIL,
-    UPDATE_USER_PROFILE_SUCCESS,
-    UPDATE_USER_PROFILE_FAIL
+    AUTHENTICATED_FAIL
 } from '../actions/types'
 
 const initialState = {
-    isAuthenticated: null,
-    username: '',
-    first_name: '',
-    last_name: '',
-    phone: '',
-    city: ''
+    isAuthenticated: null
 }
 
 export default function(state = initialState, action) {
@@ -38,21 +31,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: true,
-                username: payload
             }
         case LOGOUT_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: false
             }
-        case UPDATE_USER_PROFILE_SUCCESS:
-            return {
-                ...state,
-                first_name: payload.first_name,
-                last_name: payload.last_name,
-                phone: payload.phone,
-                city: payload.city
-            }
+
         
         case REGISTER_FAIL:
         case LOGIN_FAIL:

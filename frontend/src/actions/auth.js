@@ -91,8 +91,7 @@ export const login = (username, password) => async dispatch => {
             })
         } else {
             dispatch({
-                type:LOGIN_SUCCESS,
-                payload: res.data.username
+                type:LOGIN_SUCCESS
             })
         }
     } catch (err) {
