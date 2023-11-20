@@ -19,7 +19,7 @@ export default function(state = initialState, action) {
         case LOAD_USER_PROFILE_SUCCESS:
             return {
                 ...state,
-                username: payload.auth.username,
+                username: payload.username,
                 first_name: payload.profile.first_name,
                 last_name: payload.profile.last_name,
                 phone: payload.profile.phone,
